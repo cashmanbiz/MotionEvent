@@ -4,6 +4,10 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 public class MotionEventActivity extends ActionBarActivity {
@@ -12,6 +16,63 @@ public class MotionEventActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_motion_event);
+        RelativeLayout myLayout = (RelativeLayout) findViewById(R.id.relativeLayout1);
+        myLayout.setOnTouchListener(
+                  new RelativeLayout.OnTouchListener() {
+                    public boolean onTouch(View v, MotionEvent m){
+                        handleTouch(m);
+                        return true;
+                  }
+              }
+        );
+    }
+
+    private void handleTouch(MotionEvent m) {
+        TextView textView1=(TextView) findViewById(R.id.textView1);
+        TextView textView2=(TextView) findViewById(R.id.textView2);
+
+        int pointerCount= m.getPointerCount();
+
+        for(int i=0;i<pointerCount;i++ ){
+            int x =(int) m.getX(i);
+            int y= (int) m.getY(i);
+            int id=m.getPointerId(i);
+
+            int action=m.getActionMasked();
+            int actionIndex = m.getActionIndex();
+            String actionString;
+
+
+            switch(action) {
+                case MotionEvent.ACTION_DOWN:
+                    actionString="Down";
+                    break;
+                case MotionEvent.ACTION_UP:
+                    actionString="Up";
+                    break;
+                case MotionEvent.ACTION_POINTER_DOWN:
+                    actionString="Pointer Down";
+                    break;
+                case MotionEvent.ACTION_POINTER_UP:
+                    actionString="Pointer Up";
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    actionString="Move";
+                    break;
+                default:
+                    actionString="";
+            }
+            String touchStatus= "Action: "+actionString + "Action Index: "+actionIndex + "Pointer ID: "+ id + "X val: "+x + "Y Val: "+y;
+
+            if(id==0) {
+                textView1.setText(touchStatus);
+            }else{
+                textView2.setText(touchStatus);
+
+            }
+        }
+
+
     }
 
 
