@@ -62,7 +62,7 @@ public class MotionEventActivity extends ActionBarActivity {
                 default:
                     actionString="";
             }
-            String touchStatus= "Action: "+actionString + "Action Index: "+actionIndex + "Pointer ID: "+ id + "X val: "+x + "Y Val: "+y;
+            String touchStatus= "Action: "+actionString + " Index: "+actionIndex + " Pointer"+ id + " X val: "+x + " Y Val: "+y;
 
             if(id==0) {
                 textView1.setText(touchStatus);
